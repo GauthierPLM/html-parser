@@ -1,0 +1,23 @@
+div {
+  display: inline-block;
+  background: lightyellow;
+  overflow :hidden;
+  width: 200px;
+  height: 200px;
+  border: 2px solid black;
+}
+
+img {
+  max-height:100%;
+}
+
+p {
+  position: absolute;
+  background: white;
+  bottom:-1em;
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  padding: 5px;
+  font-size: 10pt;
+}
+  position: relative;

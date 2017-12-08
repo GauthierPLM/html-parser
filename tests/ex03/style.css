@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+}
+
+html {
+  overflow: hidden;
+}
+
+#sky {  
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  background: lightblue;
+  animation: sky 10s;
+}
+
+#bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+}
+
+#sun {
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 40%;
+  animation: sunrise 10s ;
+}
+
+#car {
+  position: absolute;
+  height: 120px;
+  bottom: 20%;
+  animation: left-right 20s ;
+}
+
+#car1 {
+  position: absolute;
+  height: 90px;
+  bottom: 10%;
+  animation: right-left 20s infinite;
+}
+    @keyframes sunrise {
+        0% {top: 90%; left:0;}
+        33% {top: 0; left:40%;}
+        66% {top: 0; left:40%;}
+        100% {top: 95%; left: 80%;}
+    }
+    
+    @keyframes sky {
+        0% {background: black}
+        33% {background: lightblue}
+        66% {background: #ffa650}
+        100% {background: black}
+    }
+    @keyframes fade {
+        0%   {opacity: 0;}
+        40%  {opacity: 100;}
+        66%  {opacity: 0;}
+        100%   {opacity: 0;}
+    }
+   
+   @keyframes left-right {
+    0%    {left:-50%;}
+    100%  {left:200%;}
+    }
+    
+      @keyframes right-left {
+    0%    {right:-50%;}
+    100%  {right:200%;}
+    }

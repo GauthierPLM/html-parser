@@ -1,4 +1,4 @@
-package Test;
+package kr.ac.cau.popl.gauthierplm;
 
 import java.util.HashMap;
 import java.util.Map;

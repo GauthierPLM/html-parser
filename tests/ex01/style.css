@@ -1,0 +1,60 @@
+span
+{
+  display: inline-block;
+	margin: 8px; 
+	box-shadow: 1px 2px 2px grey; 
+}
+
+body {
+  background-color: white;
+	padding: 30px;
+	max-width: 350px;
+	margin: auto;
+}
+
+.sky  {
+  background-color: skyblue;
+  color:white;
+  font-size : 30pt;
+  font-family: 'Bangers', cursive;
+  Text-decoration : underline ;
+}
+
+.sea{
+  background-image : url("sea.jpg");
+  color: white;
+  font-size : 15pt;
+}
+
+.rotate-left {
+	transform: rotate(-15deg);
+}
+
+.rotate-right {
+	transform: rotate(15deg);
+}
+
+.skew-left {
+	transform: skewX(10deg);
+}
+
+.skew-right {
+	transform: skewX(-10deg);
+}
+
+.small {
+	font-size: 10px;
+	padding: 6px;
+}
+
+.medium {
+	font-size: 15px;
+	padding: 8px;
+}
+
+.big {
+	font-size: 25px;
+	padding: 10px;
+}
+
+
