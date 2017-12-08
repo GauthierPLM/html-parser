@@ -17,7 +17,7 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     InputStream i;
     try
     {
-      i = new FileInputStream(new File("/Users/gauthier/eclipse-workspace/javacc/tests/ex05/ex05.html"));
+      i = new FileInputStream(new File("/Users/gauthier/eclipse-workspace/javacc/tests/ex10/ex10.html"));
     }
     catch (IOException e)
     {
@@ -58,10 +58,12 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     } else if (jj_2_3(2)) {
       endTag();
     } else if (jj_2_4(2)) {
-      text();
-    } else if (jj_2_5(2)) {
       comment();
+    } else if (jj_2_5(2)) {
+      decl();
     } else if (jj_2_6(2)) {
+      text();
+    } else if (jj_2_7(2)) {
       jj_consume_token(EOL);
     } else {
       jj_consume_token(-1);
@@ -75,16 +77,16 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     t = jj_consume_token(TAG_NAME);
     label_2:
     while (true) {
-      if (jj_2_7(2)) {
+      if (jj_2_8(2)) {
         ;
       } else {
         break label_2;
       }
       attribute();
     }
-    if (jj_2_8(2)) {
+    if (jj_2_9(2)) {
       et = jj_consume_token(TAG_END);
-    } else if (jj_2_9(2)) {
+    } else if (jj_2_10(2)) {
       et = jj_consume_token(TAG_SLASHEND);
     } else {
       jj_consume_token(-1);
@@ -108,7 +110,7 @@ public class HtmlGrammar implements HtmlGrammarConstants {
 
   static final public void attribute() throws ParseException {
     jj_consume_token(ATTR_NAME);
-    if (jj_2_10(2)) {
+    if (jj_2_11(2)) {
       attribute_value();
     } else {
       ;
@@ -128,30 +130,36 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     jj_consume_token(COMMENT_START);
     label_3:
     while (true) {
-      if (jj_2_11(2)) {
+      if (jj_2_12(2)) {
         ;
       } else {
         break label_3;
       }
-      if (jj_2_12(2)) {
+      if (jj_2_13(2)) {
         jj_consume_token(DASH);
-      } else if (jj_2_13(2)) {
-        jj_consume_token(COMMENT_EOL);
       } else if (jj_2_14(2)) {
+        jj_consume_token(COMMENT_EOL);
+      } else if (jj_2_15(2)) {
         jj_consume_token(COMMENT_WORD);
       } else {
         jj_consume_token(-1);
         throw new ParseException();
       }
     }
-    if (jj_2_15(2)) {
+    if (jj_2_16(2)) {
       jj_consume_token(0);
-    } else if (jj_2_16(2)) {
+    } else if (jj_2_17(2)) {
       jj_consume_token(COMMENT_END);
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
+  }
+
+  static final public void decl() throws ParseException {
+    jj_consume_token(DECL_START);
+    jj_consume_token(DECL_ANY);
+    jj_consume_token(DECL_END);
   }
 
   static private boolean jj_2_1(int xla) {
@@ -266,40 +274,37 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     finally { jj_save(15, xla); }
   }
 
-  static private boolean jj_3_16() {
-    if (jj_scan_token(COMMENT_END)) return true;
-    return false;
+  static private boolean jj_2_17(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_17(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(16, xla); }
   }
 
   static private boolean jj_3_15() {
-    if (jj_scan_token(0)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_14() {
     if (jj_scan_token(COMMENT_WORD)) return true;
     return false;
   }
 
-  static private boolean jj_3_13() {
+  static private boolean jj_3_14() {
     if (jj_scan_token(COMMENT_EOL)) return true;
     return false;
   }
 
-  static private boolean jj_3_11() {
+  static private boolean jj_3_12() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_12()) {
-    jj_scanpos = xsp;
     if (jj_3_13()) {
     jj_scanpos = xsp;
-    if (jj_3_14()) return true;
+    if (jj_3_14()) {
+    jj_scanpos = xsp;
+    if (jj_3_15()) return true;
     }
     }
     return false;
   }
 
-  static private boolean jj_3_12() {
+  static private boolean jj_3_13() {
     if (jj_scan_token(DASH)) return true;
     return false;
   }
@@ -309,28 +314,28 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     Token xsp;
     while (true) {
       xsp = jj_scanpos;
-      if (jj_3_11()) { jj_scanpos = xsp; break; }
+      if (jj_3_12()) { jj_scanpos = xsp; break; }
     }
     xsp = jj_scanpos;
-    if (jj_3_15()) {
+    if (jj_3_16()) {
     jj_scanpos = xsp;
-    if (jj_3_16()) return true;
+    if (jj_3_17()) return true;
     }
     return false;
   }
 
-  static private boolean jj_3_9() {
+  static private boolean jj_3_10() {
     if (jj_scan_token(TAG_SLASHEND)) return true;
     return false;
   }
 
-  static private boolean jj_3_8() {
+  static private boolean jj_3_9() {
     if (jj_scan_token(TAG_END)) return true;
     return false;
   }
 
-  static private boolean jj_3_7() {
-    if (jj_3R_8()) return true;
+  static private boolean jj_3_8() {
+    if (jj_3R_9()) return true;
     return false;
   }
 
@@ -340,24 +345,29 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     return false;
   }
 
-  static private boolean jj_3R_9() {
+  static private boolean jj_3R_10() {
     if (jj_scan_token(ATTR_EQ)) return true;
     if (jj_scan_token(ATTR_VAL)) return true;
     return false;
   }
 
-  static private boolean jj_3_6() {
+  static private boolean jj_3_7() {
     if (jj_scan_token(EOL)) return true;
     return false;
   }
 
+  static private boolean jj_3_6() {
+    if (jj_scan_token(19)) return true;
+    return false;
+  }
+
   static private boolean jj_3_5() {
-    if (jj_3R_7()) return true;
+    if (jj_3R_8()) return true;
     return false;
   }
 
   static private boolean jj_3_4() {
-    if (jj_scan_token(18)) return true;
+    if (jj_3R_7()) return true;
     return false;
   }
 
@@ -366,13 +376,8 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     return false;
   }
 
-  static private boolean jj_3_10() {
-    if (jj_3R_9()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_2() {
-    if (jj_3R_5()) return true;
+  static private boolean jj_3_11() {
+    if (jj_3R_10()) return true;
     return false;
   }
 
@@ -387,7 +392,10 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     jj_scanpos = xsp;
     if (jj_3_5()) {
     jj_scanpos = xsp;
-    if (jj_3_6()) return true;
+    if (jj_3_6()) {
+    jj_scanpos = xsp;
+    if (jj_3_7()) return true;
+    }
     }
     }
     }
@@ -395,11 +403,16 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     return false;
   }
 
-  static private boolean jj_3R_8() {
+  static private boolean jj_3_2() {
+    if (jj_3R_5()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_9() {
     if (jj_scan_token(ATTR_NAME)) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_10()) jj_scanpos = xsp;
+    if (jj_3_11()) jj_scanpos = xsp;
     return false;
   }
 
@@ -408,9 +421,25 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     return false;
   }
 
+  static private boolean jj_3R_8() {
+    if (jj_scan_token(DECL_START)) return true;
+    if (jj_scan_token(DECL_ANY)) return true;
+    return false;
+  }
+
   static private boolean jj_3R_6() {
     if (jj_scan_token(ENDTAG_START)) return true;
     if (jj_scan_token(TAG_NAME)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_17() {
+    if (jj_scan_token(COMMENT_END)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_16() {
+    if (jj_scan_token(0)) return true;
     return false;
   }
 
@@ -428,13 +457,18 @@ public class HtmlGrammar implements HtmlGrammarConstants {
   static private int jj_gen;
   static final private int[] jj_la1 = new int[0];
   static private int[] jj_la1_0;
+  static private int[] jj_la1_1;
   static {
       jj_la1_init_0();
+      jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
       jj_la1_0 = new int[] {};
    }
-  static final private JJCalls[] jj_2_rtns = new JJCalls[16];
+   private static void jj_la1_init_1() {
+      jj_la1_1 = new int[] {};
+   }
+  static final private JJCalls[] jj_2_rtns = new JJCalls[17];
   static private boolean jj_rescan = false;
   static private int jj_gc = 0;
 
@@ -639,7 +673,7 @@ public class HtmlGrammar implements HtmlGrammarConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[31];
+    boolean[] la1tokens = new boolean[34];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -650,10 +684,13 @@ public class HtmlGrammar implements HtmlGrammarConstants {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
             la1tokens[j] = true;
           }
+          if ((jj_la1_1[i] & (1<<j)) != 0) {
+            la1tokens[32+j] = true;
+          }
         }
       }
     }
-    for (int i = 0; i < 31; i++) {
+    for (int i = 0; i < 34; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
@@ -680,7 +717,7 @@ public class HtmlGrammar implements HtmlGrammarConstants {
 
   static private void jj_rescan_token() {
     jj_rescan = true;
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 17; i++) {
     try {
       JJCalls p = jj_2_rtns[i];
       do {
@@ -703,6 +740,7 @@ public class HtmlGrammar implements HtmlGrammarConstants {
             case 13: jj_3_14(); break;
             case 14: jj_3_15(); break;
             case 15: jj_3_16(); break;
+            case 16: jj_3_17(); break;
           }
         }
         p = p.next;

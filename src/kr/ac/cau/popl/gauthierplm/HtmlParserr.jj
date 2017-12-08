@@ -28,7 +28,7 @@ public class HtmlGrammar
     InputStream i;
     try
     {
-      i = new FileInputStream(new File("/Users/gauthier/eclipse-workspace/javacc/tests/ex05/ex05.html"));
+      i = new FileInputStream(new File("/Users/gauthier/eclipse-workspace/javacc/tests/ex10/ex10.html"));
     }
     catch (IOException e)
     {
@@ -110,6 +110,7 @@ TOKEN :
 | < TAG_START : "<" > : LexStartTag
 | < ENDTAG_START : "</" > : LexStartTag
 | < COMMENT_START : "<!--" > : LexComment
+| <DECL_START:     "<!"      > : LexDecl
 | < TEXT : (~[ "<", "\r", "\n" ])+ >
 }
 
@@ -167,6 +168,12 @@ TOKEN :
     ) >
 }
 
+<LexDecl> TOKEN :
+{
+  <DECL_ANY: ( <QUOTED_STRING_NB> | <QUOTE> | ~[ ">" ] )+ >
+| <DECL_END: ">" > : DEFAULT
+}
+
 void file() :
 {
 }
@@ -195,8 +202,9 @@ void element() :
   LOOKAHEAD(2)
   tag()
 | endTag()
-| text()
 | comment()
+| decl()
+| text()
 | < EOL >
 }
 
@@ -270,4 +278,11 @@ void comment() :
     < EOF >
   | < COMMENT_END >
   )
+}
+
+void decl() :
+{
+}
+{
+  <DECL_START> <DECL_ANY> <DECL_END>
 }

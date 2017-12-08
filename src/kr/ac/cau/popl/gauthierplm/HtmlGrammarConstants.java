@@ -39,38 +39,46 @@ public interface HtmlGrammarConstants {
   /** RegularExpression Id. */
   int COMMENT_START = 17;
   /** RegularExpression Id. */
-  int TEXT = 18;
+  int DECL_START = 18;
   /** RegularExpression Id. */
-  int TAG_NAME = 19;
+  int TEXT = 19;
   /** RegularExpression Id. */
-  int ATTR_NAME = 21;
+  int TAG_NAME = 20;
   /** RegularExpression Id. */
-  int TAG_END = 22;
+  int ATTR_NAME = 22;
   /** RegularExpression Id. */
-  int TAG_SLASHEND = 23;
+  int TAG_END = 23;
   /** RegularExpression Id. */
-  int ATTR_EQ = 24;
+  int TAG_SLASHEND = 24;
   /** RegularExpression Id. */
-  int ATTR_VAL = 26;
+  int ATTR_EQ = 25;
   /** RegularExpression Id. */
-  int COMMENT_END = 27;
+  int ATTR_VAL = 27;
   /** RegularExpression Id. */
-  int DASH = 28;
+  int COMMENT_END = 28;
   /** RegularExpression Id. */
-  int COMMENT_EOL = 29;
+  int DASH = 29;
   /** RegularExpression Id. */
-  int COMMENT_WORD = 30;
+  int COMMENT_EOL = 30;
+  /** RegularExpression Id. */
+  int COMMENT_WORD = 31;
+  /** RegularExpression Id. */
+  int DECL_ANY = 32;
+  /** RegularExpression Id. */
+  int DECL_END = 33;
 
   /** Lexical state. */
-  int LexComment = 0;
+  int LexDecl = 0;
   /** Lexical state. */
-  int LexAttrVal = 1;
+  int LexComment = 1;
   /** Lexical state. */
-  int LexInTag = 2;
+  int LexAttrVal = 2;
   /** Lexical state. */
-  int LexStartTag = 3;
+  int LexInTag = 3;
   /** Lexical state. */
-  int DEFAULT = 4;
+  int LexStartTag = 4;
+  /** Lexical state. */
+  int DEFAULT = 5;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -92,19 +100,22 @@ public interface HtmlGrammarConstants {
     "\"<\"",
     "\"</\"",
     "\"<!--\"",
+    "\"<!\"",
     "<TEXT>",
     "<TAG_NAME>",
-    "<token of kind 20>",
+    "<token of kind 21>",
     "<ATTR_NAME>",
     "\">\"",
     "\"/>\"",
     "\"=\"",
-    "<token of kind 25>",
+    "<token of kind 26>",
     "<ATTR_VAL>",
     "<COMMENT_END>",
     "\"-\"",
     "<COMMENT_EOL>",
     "<COMMENT_WORD>",
+    "<DECL_ANY>",
+    "\">\"",
   };
 
 }
