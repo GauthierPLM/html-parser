@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.FileWriter;
 
 public class HtmlGrammar implements HtmlGrammarConstants {
   private static TagRecord tr;
@@ -39,7 +40,19 @@ public class HtmlGrammar implements HtmlGrammarConstants {
         System.err.println("Parsing error");
       }
 
-      System.out.println(tr);
+      File output = new File("50171352.txt");
+      try
+      {
+      output.createNewFile();
+      FileWriter writer = new FileWriter(output);
+          writer.write(tr.toString());
+          writer.close();
+      }
+      catch (IOException e)
+      {
+        System.out.println("Cannot write into output file.");
+        System.out.println(tr);
+      }
     }
   }
 

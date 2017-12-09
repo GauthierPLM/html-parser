@@ -20,11 +20,16 @@ public class TagRecord {
 	public String toString() {
 		StringBuffer sb = new StringBuffer("");
 		
-		for(Entry<String, Integer> entry : record.entrySet()) {
-		    String key = entry.getKey();
-		    Integer value = entry.getValue();
-			
-		    sb.append("<").append(key).append("> ").append(value).append("\n");
+		if (record.size() != 0) {
+			for(Entry<String, Integer> entry : record.entrySet()) {
+			    String key = entry.getKey();
+			    Integer value = entry.getValue();
+				
+			    sb.append("<").append(key).append("> ").append(value).append("\n");
+			}
+		}
+		else { 
+			sb.append("No tag found");
 		}
 		
 		return sb.toString();
