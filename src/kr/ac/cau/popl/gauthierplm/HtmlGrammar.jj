@@ -1,0 +1,300 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+
+
+options
+{
+  IGNORE_CASE = true;
+}
+
+PARSER_BEGIN(HtmlGrammar)
+package kr.ac.cau.popl.gauthierplm;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.IOException;
+
+public class HtmlGrammar
+{
+  private static TagRecord tr;
+
+  public static void main(String args []) throws ParseException
+  {
+    String file;
+    if (args.length == 1) file = args[0];
+    else file = "";
+    
+    tr = new TagRecord();
+    InputStream i = System.in;
+    
+    try
+    {
+      i = new FileInputStream(new File(file));
+    }
+    catch (IOException e)
+    {
+      System.out.println("Use stdin");
+    }
+    finally
+    {
+      HtmlGrammar parser = new HtmlGrammar(i);
+      
+      try
+      {
+        parser.file();
+        System.out.println("Parsing Complete!");
+      }
+      catch (ParseException e)
+      {
+        System.err.println("Parsing error");
+      }
+      
+      System.out.println(tr);
+    }
+  }
+}
+
+PARSER_END(HtmlGrammar)
+
+<* >
+SKIP :
+{
+  "=\n"
+| "=\r\n"
+| "=\r"
+}
+
+<* >
+TOKEN :
+{
+  < #ALPHA_CHAR : [ "a"-"z", "A"-"Z" ] >
+| < #NUM_CHAR : [ "0"-"9" ] >
+| < #ALPHANUM_CHAR : [ "a"-"z", "A"-"Z", "0"-"9" ] >
+| < #IDENTIFIER_CHAR : [ "a"-"z", "A"-"Z", "0"-"9", "_", "-", ".", ":" ] >
+| < #IDENTIFIER : < ALPHA_CHAR > (< IDENTIFIER_CHAR >)* >
+| < #QUOTED_STRING_NB :
+    (
+      "'" (~[ "'", "\r", "\n" ])* "'"
+    )
+  |
+    (
+      "\"" (~[ "\"", "\r", "\n" ])* "\""
+    ) >
+| < #QUOTED_STRING :
+    (
+      "'" (~[ "'" ])* "'"
+    )
+  |
+    (
+      "\"" (~[ "\"" ])* "\""
+    ) >
+| < #WHITESPACE :
+    (
+      " "
+    | "\t"
+    | "\n"
+    | "\r"
+    ) >
+| < #NEWLINE :
+    (
+      "\r\n"
+    | "\r"
+    | "\n"
+    ) >
+| < #QUOTE :
+    (
+      "'"
+    | "\""
+    ) >
+}
+
+< DEFAULT >
+TOKEN :
+{
+  < EOL :
+    (
+      " "
+    | "\t"
+    )*
+    < NEWLINE > >
+| < TAG_START : "<" > : LexStartTag
+| < ENDTAG_START : "</" > : LexStartTag
+| < COMMENT_START : "<!--" > : LexComment
+| < DECL_START : "<!" > : LexDecl
+| < TEXT : (~[ "<", "\r", "\n" ])+ >
+}
+
+< LexStartTag >
+TOKEN :
+{
+  < TAG_NAME : < IDENTIFIER > > : LexInTag
+}
+
+< LexInTag >
+SPECIAL_TOKEN :
+{
+  < (< WHITESPACE >)+ >
+}
+
+< LexInTag >
+TOKEN :
+{
+  < ATTR_NAME : < IDENTIFIER > >
+| < TAG_END : ">" > : DEFAULT
+| < TAG_SLASHEND : "/>" > : DEFAULT
+| < ATTR_EQ : "=" > : LexAttrVal
+}
+
+< LexAttrVal >
+SPECIAL_TOKEN :
+{
+  < (< WHITESPACE >) >
+}
+
+< LexAttrVal >
+TOKEN :
+{
+  < ATTR_VAL :
+    < QUOTED_STRING >
+  | (~[ ">", "\"", "'", " ", "\t", "\n", "\r" ])+ > : LexInTag
+}
+
+< LexComment >
+TOKEN :
+{
+  < COMMENT_END :
+    (
+      "--" (" ")* ">"
+    | "->"
+    ) >
+  : DEFAULT
+| < DASH : "-" >
+| < COMMENT_EOL : < NEWLINE > >
+| < COMMENT_WORD :
+    (
+      (~[ "\n", "\r", "'", "\"", "-" ])+
+    | < QUOTED_STRING_NB >
+    | < QUOTE >
+    ) >
+}
+
+< LexDecl >
+TOKEN :
+{
+  < DECL_ANY :
+    (
+      < QUOTED_STRING_NB >
+    | < QUOTE >
+    | ~[ ">" ]
+    )+ >
+| < DECL_END : ">" > : DEFAULT
+}
+
+void file() :
+{
+}
+{
+  elementSequence() < EOF >
+}
+
+void elementSequence() :
+{
+}
+{
+  (
+    element()
+  )*
+}
+
+void element() :
+{
+  Token text;
+}
+{
+  tag()
+| endTag()
+| comment()
+| decl()
+| text()
+| < EOL >
+}
+
+void tag() :
+{
+  Token t, et;
+}
+{
+  < TAG_START > t = < TAG_NAME >
+  (
+    attribute()
+  )*
+  (
+    et = < TAG_END >
+  | et = < TAG_SLASHEND >
+  )
+  {
+    if (et.kind == TAG_SLASHEND)
+    {
+      tr.record(t);
+    }
+    else
+    {
+      tr.record(t);
+    }
+  }
+}
+
+void endTag() :
+{
+}
+{
+  < ENDTAG_START > < TAG_NAME > < TAG_END >
+}
+
+void attribute() :
+{
+}
+{
+  < ATTR_NAME >
+  (
+    attribute_value()
+  )?
+}
+
+void attribute_value() :
+{
+}
+{
+  < ATTR_EQ > < ATTR_VAL >
+}
+
+void text() :
+{
+}
+{
+  < TEXT >
+}
+
+void comment() :
+{
+}
+{
+  < COMMENT_START >
+  (
+    < DASH >
+  | < COMMENT_EOL >
+  | < COMMENT_WORD >
+  )*
+  (
+    < EOF >
+  | < COMMENT_END >
+  )
+}
+
+void decl() :
+{
+}
+{
+  < DECL_START > < DECL_ANY > < DECL_END >
+}
