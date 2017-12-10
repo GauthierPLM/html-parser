@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.FileWriter;
 
 public class HtmlGrammar implements HtmlGrammarConstants {
+  private static String studentId = "50171352";
   private static TagRecord tr;
 
   public static void main(String args []) throws ParseException
@@ -22,7 +23,7 @@ public class HtmlGrammar implements HtmlGrammarConstants {
     }
     catch (IOException e)
     {
-      System.out.println("Use stdin, press CTRL+D to end input.");
+      System.out.println("Use stdin, press CTRL+D (Linux and Mac) / CTRL+Z (Windows) to end input.");
     }
     finally
     {
@@ -36,14 +37,14 @@ public class HtmlGrammar implements HtmlGrammarConstants {
       {
         System.err.println("Parsing error");
       }
-      File output = new File("50171352.txt");
+      File output = new File(studentId + ".txt");
       try
       {
         output.createNewFile();
         FileWriter writer = new FileWriter(output);
         writer.write(tr.toString());
         writer.close();
-        System.out.println("Result written in 50171352.txt");
+        System.out.println("Result written in " + studentId + ".txt");
       }
       catch (IOException e)
       {
