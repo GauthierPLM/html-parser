@@ -23,24 +23,21 @@ public class HtmlGrammar
   public static void main(String args []) throws ParseException
   {
     String file;
-    if (args.length == 1) file = args[0];
+    if (args.length == 1) file = args [0];
     else file = "";
-    
     tr = new TagRecord();
     InputStream i = System.in;
-    
     try
     {
       i = new FileInputStream(new File(file));
     }
     catch (IOException e)
     {
-      System.out.println("Use stdin");
+      System.out.println("Use stdin, press CTRL+D to end input.");
     }
     finally
     {
       HtmlGrammar parser = new HtmlGrammar(i);
-      
       try
       {
         parser.file();
@@ -50,14 +47,14 @@ public class HtmlGrammar
       {
         System.err.println("Parsing error");
       }
-
       File output = new File("50171352.txt");
       try
       {
-      output.createNewFile();
-      FileWriter writer = new FileWriter(output);
-	  writer.write(tr.toString());
-	  writer.close();
+        output.createNewFile();
+        FileWriter writer = new FileWriter(output);
+        writer.write(tr.toString());
+        writer.close();
+        System.out.println("Result written in 50171352.txt");
       }
       catch (IOException e)
       {
